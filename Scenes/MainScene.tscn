@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://caspgh6p4vacy"]
+
+[ext_resource type="Script" path="res://Scripts/CardManager.gd" id="1_ghh1i"]
+[ext_resource type="Script" path="res://Scripts/Deck.gd" id="1_wwmpd"]
+[ext_resource type="Texture2D" uid="uid://cgjbnqubqygko" path="res://Assets/greenBoard.png" id="2_g1fo4"]
+[ext_resource type="Script" path="res://Scripts/Board.gd" id="3_elcy8"]
+[ext_resource type="Script" path="res://Scripts/InputManager.gd" id="3_goyhm"]
+[ext_resource type="PackedScene" uid="uid://b87qio06eo8br" path="res://Scenes/Card.tscn" id="5_6xito"]
+
+[node name="MainScene" type="Node2D"]
+metadata/_edit_vertical_guides_ = [200.0, 929.0]
+
+[node name="Card_Manager" type="Node2D" parent="."]
+script = ExtResource("1_ghh1i")
+
+[node name="Deck" type="Node2D" parent="Card_Manager"]
+script = ExtResource("1_wwmpd")
+
+[node name="Board" type="Node2D" parent="Card_Manager"]
+script = ExtResource("3_elcy8")
+
+[node name="greenBoard" type="Sprite2D" parent="Card_Manager/Board"]
+z_index = -1
+position = Vector2(576, 324)
+texture = ExtResource("2_g1fo4")
+
+[node name="Card_placeholder" parent="Card_Manager/Board" instance=ExtResource("5_6xito")]
+visible = false
+position = Vector2(560, 329)
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("3_goyhm")
