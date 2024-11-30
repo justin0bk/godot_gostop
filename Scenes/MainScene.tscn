@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://caspgh6p4vacy"]
+[gd_scene load_steps=8 format=3 uid="uid://caspgh6p4vacy"]
 
 [ext_resource type="Script" path="res://Scripts/CardManager.gd" id="1_ghh1i"]
 [ext_resource type="Script" path="res://Scripts/Deck.gd" id="1_wwmpd"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Board.gd" id="3_elcy8"]
 [ext_resource type="Script" path="res://Scripts/InputManager.gd" id="3_goyhm"]
 [ext_resource type="PackedScene" uid="uid://b87qio06eo8br" path="res://Scenes/Card.tscn" id="5_6xito"]
+[ext_resource type="PackedScene" uid="uid://ddt36nbk5cami" path="res://Scenes/Hand.tscn" id="6_4clkp"]
 
 [node name="MainScene" type="Node2D"]
 metadata/_edit_vertical_guides_ = [200.0, 929.0]
@@ -27,6 +28,9 @@ texture = ExtResource("2_g1fo4")
 [node name="Card_placeholder" parent="Card_Manager/Board" instance=ExtResource("5_6xito")]
 visible = false
 position = Vector2(560, 329)
+
+[node name="Hand" parent="Card_Manager" instance=ExtResource("6_4clkp")]
+position = Vector2(941, 509)
 
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("3_goyhm")

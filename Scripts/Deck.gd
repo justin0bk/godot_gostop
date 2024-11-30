@@ -7,7 +7,7 @@ var current_deck
 
 func _ready() -> void:
 	current_deck = new_deck()
-	current_deck.shuffle()
+	#current_deck.shuffle()
 
 func new_deck():
 	var deck = []

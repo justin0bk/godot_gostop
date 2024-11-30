@@ -3,18 +3,25 @@ extends Node2D
 const COLLISION_MASK_CARD = 1 << 0
 const COLLISION_MASK_DECK = 1 << 1
 var card_manager_reference
+var temp_click_count = 0
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			card_manager_reference.setup_deck()
+			match temp_click_count:
+				0:
+					card_manager_reference.setup_deck()
+				1:
+					card_manager_reference.setup_board()
+			temp_click_count += 1
+			print("current temp_click_count: ", temp_click_count)
 		else:
 			pass
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed:
-			card_manager_reference.setup_board()
-		else:
-			pass
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		#if event.pressed:
+			#card_manager_reference.setup_board()
+		#else:
+			#pass
 			
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

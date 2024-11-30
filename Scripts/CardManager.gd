@@ -20,7 +20,7 @@ func _ready() -> void:
 	
 func setup_deck():
 	if !setup_ready:
-		var position_shift = 1
+		var position_shift = 1.2
 		var deck_position = center_position
 		for card in Deck.current_deck:
 			get_node("Deck").add_child(card)
@@ -35,21 +35,31 @@ func setup_deck():
 func setup_board():
 	var drop_positions = Board.init_drop_coords(center_position, 250, -90)
 	var inner_drop_positions = Board.init_drop_coords(center_position, 150, -90)
-	for n in range(12):
+	for n in range(6):
 		var top_card = Deck.current_deck[-1]
 		var position_offset = Vector2(rng.randf_range(-10,10), rng.randf_range(-10,10))
 		Deck.current_deck.erase(top_card)
 		Board.board_cards.append(top_card)
+		top_card.change_to("BOARD")
 		top_card.scale = Vector2(0.6,0.6)
 		top_card.get_node("AnimationPlayer").play("Deck2Front")
-		if n%2:
-			move_to(top_card, inner_drop_positions[n] + position_offset)
-		else:
-			move_to(top_card, drop_positions[n] + position_offset)
+		move_to(top_card, inner_drop_positions[2*n] + position_offset)
 		await create_timer(0.3).timeout
+	
+	if check_triple_suit(Board.board_cards):
+		Board.sort_triples()
 		
-	print(Deck.current_deck.size(), Board.board_cards.size())
-
+func check_triple_suit(card_set: Array) -> bool:
+	var suits_count = {}
+	for card in card_set:
+		if suits_count.has(card.suit):
+			suits_count[card.suit] += 1
+		else:
+			suits_count[card.suit] = 1
+	for key in suits_count.keys():
+		if suits_count[key] == 3:
+			return true
+	return false
 
 func move_to(card, position):
 	var tween = get_tree().create_tween()
